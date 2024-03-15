@@ -18,7 +18,7 @@ pipeline {
         stage('Build Docker Image'){
             steps{
                 script{
-                    sh "docker build -t dhruvilrangani/my-app-image ."
+                    sh '"C:/Program Files/Docker/Docker/resources/bin/docker" build -t dhruvilrangani/my-app-image .'
                 }
             }
         }
