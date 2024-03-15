@@ -9,11 +9,12 @@ pipeline {
         }
         stage('Build Maven Project') {
             steps {
-                // Use the configured Maven installation 'MAVEN3'
-                tool 'MAVEN3'
-                sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+                withMaven(maven: 'MAVEN3') {
+                    sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+                }
             }
         }
+
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t dhruvilrangani/my-app-image .'
