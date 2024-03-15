@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t your-dockerhub-username/my-app-image .'
+                sh 'docker build -t dhruvilrangani/my-app-image .'
             }
         }
         stage('Docker Login') {
@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                sh 'docker push your-dockerhub-username/my-app-image'
+                sh 'docker push dhruvilrangani/my-app-image'
             }
         }
     }
