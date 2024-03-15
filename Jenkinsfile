@@ -12,19 +12,22 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh '"C:/Program Files/Docker/Docker/resources/bin" build -t dhruvilrangani/my-app-image .'
+                def dockerExecutable = '"C:/Program Files/Docker/Docker/resources/bin/docker"'
+                sh "${dockerExecutable} build -t dhruvilrangani/my-app-image ."
             }
         }
         stage('Docker Login') {
             steps {
+                def dockerExecutable = '"C:/Program Files/Docker/Docker/resources/bin/docker"'
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-                    sh '"C:/Program Files/Docker/Docker/resources/bin" -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                    sh '${dockerExecutable} -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
-                sh '"C:/Program Files/Docker/Docker/resources/bin" dhruvilrangani/my-app-image'
+                def dockerExecutable = '"C:/Program Files/Docker/Docker/resources/bin/docker"'
+                sh '${dockerExecutable} dhruvilrangani/my-app-image'
             }
         }
     }
