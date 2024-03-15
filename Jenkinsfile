@@ -12,19 +12,19 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t dhruvilrangani/my-app-image .'
+                sh '"C:/Program Files/Docker/Docker/resources/bin" build -t dhruvilrangani/my-app-image .'
             }
         }
         stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-                    sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                    sh '"C:/Program Files/Docker/Docker/resources/bin" -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
-                sh 'docker push dhruvilrangani/my-app-image'
+                sh '"C:/Program Files/Docker/Docker/resources/bin" dhruvilrangani/my-app-image'
             }
         }
     }
