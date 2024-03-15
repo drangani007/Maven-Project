@@ -9,6 +9,8 @@ pipeline {
         }
         stage('Build Maven Project') {
             steps {
+                // Use the configured Maven installation 'MAVEN3'
+                tool 'MAVEN3'
                 sh 'mvn -Dmaven.test.failure.ignore=true clean package'
             }
         }
