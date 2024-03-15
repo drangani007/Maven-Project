@@ -18,7 +18,8 @@ pipeline {
         stage('Build Docker Image'){
             steps{
                 script{
-                    sh '"C:/Program Files/Docker/Docker/resources/bin/docker" build -t dhruvilrangani/my-app-image .'
+                    def dockerCmd = "\"C:/Program Files/Docker/Docker/resources/bin/docker.exe\""
+                    sh "${dockerCmd} build -t drangani007/my-app-1.0 ."
                 }
             }
         }
