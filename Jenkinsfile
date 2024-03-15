@@ -1,25 +1,22 @@
 pipeline {
     agent any
-    tools {
+    tools{
         maven "MAVEN3"
     }
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Build Maven Project') {
             steps {
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '08715572-302e-4b21-b8ae-ec35d792cb70', url: 'https://github.com/drangani007/Maven-Project.git']])
-                    sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+                // Your Maven build step
+                sh 'mvn -Dmaven.test.failure.ignore=true clean package'
             }
         }
-        stage('Build Docker Image'){
-            steps{
-                script{
-                    def dockerCmd = "\"C:/Program Files/Docker/Docker/resources/bin/docker.exe\""
-                    sh "${dockerCmd} build -t drangani007/my-app-image ."
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    def dockerImage = docker.build('dhruvilrangani/my-app-image')
+                    dockerImage.inside {
+                        // Additional commands to run inside the Docker container if needed
+                    }
                 }
             }
         }
