@@ -15,5 +15,12 @@ pipeline {
                     sh 'mvn -Dmaven.test.failure.ignore=true clean package'
             }
         }
+        stage('Build Docker Image'){
+            steps{
+                script{
+                    sh "docker build -t dhruvilrangani/my-app-image ."
+                }
+            }
+        }
     }
 }
