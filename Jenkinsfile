@@ -19,7 +19,7 @@ pipeline {
             steps{
                 script{
                     def dockerCmd = "\"C:/Program Files/Docker/Docker/resources/bin/docker.exe\""
-                    sh "${dockerCmd} build -t drangani007/my-app-1.0 ."
+                    sh "${dockerCmd} build -t drangani007/my-app-image ."
                 }
             }
         }
