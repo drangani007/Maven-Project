@@ -13,7 +13,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script{
-                    def dockerExecutable = 'C:/Program Files/Docker/Docker/docker.exe'
+                    def dockerExecutable = '"C:/Program Files/Docker/Docker/docker.exe"'
                     sh "${dockerExecutable} build -t dhruvilrangani/my-app-image ."
                 }
             }
@@ -21,7 +21,7 @@ pipeline {
         stage('Docker Login') {
             steps {
                 script{
-                    def dockerExecutable = 'C:/Program Files/Docker/Docker/docker.exe'
+                    def dockerExecutable = '"C:/Program Files/Docker/Docker/docker.exe"'
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
                         sh "${dockerExecutable} -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD"
                     }
@@ -31,7 +31,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script{
-                    def dockerExecutable = 'C:/Program Files/Docker/Docker/docker.exe'
+                    def dockerExecutable = '"C:/Program Files/Docker/Docker/docker.exe"'
                     sh "${dockerExecutable} push dhruvilrangani/my-app-image"
                 }
             }
