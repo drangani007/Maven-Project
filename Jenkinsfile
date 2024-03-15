@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools {
+        maven "MAVEN3"
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -10,26 +12,9 @@ pipeline {
         stage('Build Maven Project') {
             steps {
                 withMaven(maven: 'MAVEN3') {
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '08715572-302e-4b21-b8ae-ec35d792cb70', url: 'https://github.com/drangani007/Maven-Project.git']])
                     sh 'mvn -Dmaven.test.failure.ignore=true clean package'
                 }
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t dhruvilrangani/my-app-image .'
-            }
-        }
-        stage('Docker Login') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-                    sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
-                }
-            }
-        }
-        stage('Push Docker Image') {
-            steps {
-                sh 'docker push dhruvilrangani/my-app-image'
             }
         }
     }
